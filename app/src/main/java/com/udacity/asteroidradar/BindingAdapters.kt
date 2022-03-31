@@ -1,5 +1,6 @@
 package com.udacity.asteroidradar
 
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -39,3 +40,30 @@ fun bindTextViewToDisplayVelocity(textView: TextView, number: Double) {
     val context = textView.context
     textView.text = String.format(context.getString(R.string.km_s_unit_format), number)
 }
+
+@BindingAdapter("codeName")
+fun bindCodeName(textView: TextView, codeName: String) {
+    textView.text = codeName
+}
+
+@BindingAdapter("asteroidMag")
+fun bindAsteroidMagnitude(textView: TextView, mag: Double) {
+    textView.text = mag.toString()
+}
+
+//@BindingAdapter("asteroidApiStatus")
+//fun bindStatus(statusImageView: ImageView, status: AsteroidApiStatus?) {
+//    when (status) {
+//        AsteroidApiStatus.LOADING -> {
+//            statusImageView.visibility = View.VISIBLE
+//            statusImageView.setImageResource(R.drawable.loading_animation)
+//        }
+//        AsteroidApiStatus.ERROR -> {
+//            statusImageView.visibility = View.VISIBLE
+//            statusImageView.setImageResource(R.drawable.ic_connection_error)
+//        }
+//        AsteroidApiStatus.DONE -> {
+//            statusImageView.visibility = View.GONE
+//        }
+//    }
+//}

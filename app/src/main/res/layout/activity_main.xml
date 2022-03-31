@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- The merge tag can be used to eliminate redundant layouts when
+     including layouts, and it's a good idea to use it.
+     See: https://developer.android.com/training/improving-layouts/reusing-layouts -->
+
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_host_fragment"
@@ -8,3 +16,5 @@
     android:background="@color/app_background"
     app:defaultNavHost="true"
     app:navGraph="@navigation/main_nav_graph" />
+
+</merge>
