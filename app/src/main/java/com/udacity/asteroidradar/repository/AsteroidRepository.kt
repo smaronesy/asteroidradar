@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.udacity.asteroidradar.Asteroid
+import com.udacity.asteroidradar.Constants
 import com.udacity.asteroidradar.PictureOfDay
 import com.udacity.asteroidradar.api.AsteroidApi
 import com.udacity.asteroidradar.api.PodApi
@@ -13,6 +14,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import retrofit2.awaitResponse
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * providing a db in the construction is a dependency injection
@@ -27,9 +30,11 @@ class AsteroidRepository(private val database: AsteroidDatabase) {
 
     // method to refresh offline cash
     suspend fun refreshAsteroids() {
+        val today = SimpleDateFormat(Constants.API_QUERY_DATE_FORMAT, Locale.getDefault()).format(
+            Calendar.getInstance().time)
         withContext(Dispatchers.IO) {
             try {
-                val response = AsteroidApi.retrofitService.getProperties().awaitResponse()
+                val response = AsteroidApi.retrofitService.getProperties(today, Constants.API_KEY).awaitResponse()
                 val jsonBody = JSONObject(response.body())
                 val listAst = parseAsteroidsJsonResult(jsonBody)
                 database.asteroidDatabaseDao.insertAll(*listAst.asDatabaseObject())
