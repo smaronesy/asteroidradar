@@ -19,12 +19,12 @@ package com.udacity.asteroidradar.api
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.udacity.asteroidradar.Constants
 import com.udacity.asteroidradar.PictureOfDay
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
-
-private const val BASE_URL = "https://api.nasa.gov/"
+import retrofit2.http.Query
 
 /**
  * Build the Moshi object that Retrofit will be using, making sure to add the Kotlin adapter for
@@ -40,7 +40,7 @@ private val moshi = Moshi.Builder()
  */
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(MoshiConverterFactory.create(moshi))
-    .baseUrl(BASE_URL)
+    .baseUrl(Constants.BASE_URL)
     .build()
 
 /**
@@ -52,8 +52,8 @@ interface PodApiService {
      * The @GET annotation indicates that the "realestate" endpoint will be requested with the GET
      * HTTP method
      */
-    @GET("planetary/apod?api_key=uLiVb2NgW8PhwHOQgG7UDPjOYnFwFcNIhzyHg4JQ")
-    suspend fun getProperties(): PictureOfDay
+    @GET("planetary/apod?")
+    suspend fun getProperties(@Query("api_key") key: String): PictureOfDay
 }
 
 /**

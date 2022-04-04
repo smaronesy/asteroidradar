@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.udacity.asteroidradar.Asteroid
+import java.util.*
 
 @Entity(tableName = "asteroid_details")
 data class DatabaseAsteroidEntity(

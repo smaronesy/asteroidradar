@@ -2,10 +2,14 @@ package com.udacity.asteroidradar.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.udacity.asteroidradar.Constants
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Defines methods for using the Asteroid class with Room.
  */
+
 @Dao
 interface AsteroidDatabaseDao {
 
@@ -51,6 +55,12 @@ interface AsteroidDatabaseDao {
      */
     @Query("SELECT * FROM asteroid_details ORDER BY close_approach_date DESC")
     fun getAllAsteroids(): LiveData<List<DatabaseAsteroidEntity>>
+
+    @Query("SELECT * FROM asteroid_details WHERE close_approach_date == :today ORDER BY close_approach_date DESC")
+    fun getTodayAsteroids(today: String): LiveData<List<DatabaseAsteroidEntity>>
+
+    @Query("SELECT * FROM asteroid_details WHERE close_approach_date <= :week ORDER BY close_approach_date DESC")
+    fun getWeekAsteroids(week: String): LiveData<List<DatabaseAsteroidEntity>>
 
     /**
      * Picture of Day SQL calls
